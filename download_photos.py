@@ -21,6 +21,7 @@ photos_per_page = 100
 try :
   page_num = int(sys.argv[1])
   page_increment = int(sys.argv[2])
+  season = sys.argv[3]
 except Exception as e:
   page_num = 1
   page_increment = 1
@@ -56,5 +57,4 @@ def download(season, p_num, p_increment):
           print 'photo save error'
     p_num += p_increment
 
-for season in seasons:
-  download(season, page_num, page_increment)
+download(season, page_num, page_increment)
