@@ -14,7 +14,7 @@ seasons = ['summer', 'winter', 'autumn', 'spring']
 # Directory where to save, make sure that each of the above seasons is a directory inside the data directory
 data_directory = '/home/alex/Desktop/Stuffs/Research/cyclegan/download_script/data/'
 # Limit of how many photos to download, put -1 for no limit
-limit = 1000
+limit = 2000
 photos_per_page = 100
 
 # When calling with command line arguments, specify the page number to start with, and the page number increment
