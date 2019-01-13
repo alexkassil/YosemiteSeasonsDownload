@@ -25,10 +25,12 @@ try :
 except Exception as e:
   page_num = 1
   page_increment = 1
+  season = 'winter'
 
 # Downloads based on page number of search and season
 def download(season, p_num, p_increment):
   while True:
+    ids = set()
     # Explanation of search parameters https://www.flickr.com/services/api/flickr.photos.search.html
     if limit != -1 and page_num * photos_per_page > limit:
         break
@@ -36,16 +38,17 @@ def download(season, p_num, p_increment):
     photo_number = 1
 
     # If search is empty, break
-    if not photos:
+    if photos[0].id in ids:
         break
     print len(photos), photos[0], p_num
 
     for photo in photos:
       try:
+        ids.add(photo.id)
         earliest_saved_photo_date = datetime.fromtimestamp(int(photo.getInfo()['dateuploaded']))
         info = photo.getInfo()
 
-        filename = '%s%s/%s page %s number %s' % (data_directory,season,earliest_saved_photo_date,p_num,photo_number)
+        filename = '%s%s/%s' % (data_directory,season,earliest_saved_photo_date)
         photo.save(filename, size_label='Medium')
         #print ('Saved [' + photo.title + '] in ' + filename)
         print ('Saved page ' + str(p_num) + ' number ' + str(photo_number)  + ' season ' + season)
