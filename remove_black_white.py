@@ -22,6 +22,9 @@ def find_black_white(directory):
         if len(im.shape) != 3:
             bw.append(p)
         # Check for photos who are almost the same color in all 3 color channels
+        # 5 * height * width is used for cutoff because after testing that seemed to be the cutoff that
+        # caught black and white photos whose color channels weren't perfectly off and didn't catch
+        # very white/grey photos like snow or rocks that are in color
         elif np.sum(np.abs(im[:, :, 0] - im[:, :, 1]) + np.abs(im[:, :, 1] - im[:, :, 2]) + np.abs(im[:, :, 2] - im[:, :, 0])) <= 5*im.shape[0]*im.shape[1]:
             bw.append(p)
 
