@@ -32,8 +32,9 @@ def find_black_white(directory):
     return bw
 
 def delete_photos(photos):
-    pass
+    for photo in photos:
+        os.remove(photo)
 
 
 for directory in directories:
-    find_black_white(directory)
+    delete_photos(find_black_white(directory))
