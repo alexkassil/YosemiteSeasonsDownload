@@ -29,7 +29,6 @@ def find_faces(directory):
     for i, p in enumerate(photos):
         if i % 1000 == 0:
             print(i, "photos checked", len(photos_with_faces), "photos with faces found")
-            print(i, len(photos_with_faces))
         im = io.imread(p)
 
         if has_faces(im):
