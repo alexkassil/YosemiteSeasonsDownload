@@ -1,8 +1,8 @@
 
-FROMDIR=./spring
-TODIR=./spring_sample
+FROMDIR=./autumn
+TODIR=./autumn_sample
 
-SAMPLE=200
+SAMPLE=100
 
 N=$(ls -l $FROMDIR | wc -l)
 #N/SAMPLE
