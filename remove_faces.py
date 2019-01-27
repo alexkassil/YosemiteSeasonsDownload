@@ -1,10 +1,10 @@
-from skimage import io, draw
-from matplotlib import pyplot as plt
+from skimage import io
 import os
 import shutil
 import numpy as np
 import time
 import cv2
+import face_recognition as fr
 
 directories = ["./data/" + d for d in ["autumn/", "winter/", "summer/", "spring/"]]
 
@@ -13,17 +13,6 @@ def find_faces(directory):
     for f in os.listdir(directory):
         photos.append(directory+f)
 
-    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-    def has_faces(img):
-        gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-        faces = face_cascade.detectMultiScale(
-            gray,
-            scaleFactor=1.175,
-            minNeighbors=5,
-            flags = cv2.CASCADE_SCALE_IMAGE
-        )
-        return len(faces) != 0
-
     photos_with_faces = []
     print(len(photos), "total photos in", directory)
     for i, p in enumerate(photos):
@@ -31,14 +20,15 @@ def find_faces(directory):
             print(i, "photos checked", len(photos_with_faces), "photos with faces found")
         im = io.imread(p)
 
-        if has_faces(im):
+        if len(fr.face_locations(im)):
             photos_with_faces.append(p)
     print(len(photos_with_faces), "total photos with faces found")
     return photos_with_faces
 
-def move_photos(photos, destination):
+def delete_photos(photos):
     for photo in photos:
-        shutil.move(photo, destination)
+        os.remove(photo)
 
 for directory in directories:
-    move_photos(find_faces(directory), directory[:-7] + "deleted_" + directory[-7:])
+    delete_photos(find_faces(directory))
+
